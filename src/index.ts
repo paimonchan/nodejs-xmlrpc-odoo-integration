@@ -3,6 +3,9 @@ import {URL} from 'url'
 
 const RPC_PATH_COMMON = '/xmlrpc/2/common'
 const RPC_PATH_OBJECT = '/xmlrpc/2/object'
+// TODO: check on db.py and posibility callable function.
+//       add checking version odoo before call this path.
+const RPC_PATH_DB = '/xmlrpc/2/db'
 
 class OdooXMLRPC {
     private config!: Record<string, number | string>
