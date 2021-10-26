@@ -1,5 +1,8 @@
 import xmlrpc from 'xmlrpc';
 
+const RPC_PATH_COMMON = '/xmlrpc/2/common'
+const RPC_PATH_OBJECT = '/xmlrpc/2/object'
+
 class OdooXMLRPC {
     config!: Record<string, unknown>;
 
