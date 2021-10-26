@@ -1,10 +1,28 @@
-import xmlrpc from 'xmlrpc';
+import xmlrpc from 'xmlrpc'
+import {URL} from 'url'
 
 const RPC_PATH_COMMON = '/xmlrpc/2/common'
 const RPC_PATH_OBJECT = '/xmlrpc/2/object'
 
 class OdooXMLRPC {
-    config!: Record<string, unknown>;
+    private config!: Record<string, number | string>
+    private client!: xmlrpc.Client;
+
+    private getClient = (rpcPath: string): xmlrpc.Client => {
+        const {host, port} = this.config
+        const urlProperty = new URL(String(host))
+        const options = {
+            host: urlProperty.host,
+            port: Number(port),
+            path: rpcPath,
+        }
+        if (urlProperty.protocol === 'http:') {
+            this.client = xmlrpc.createClient(options)
+        } else {
+            this.client = xmlrpc.createSecureClient(options)
+        }
+        return this.client
+    }
 
     /**
      * set xmlrpc configuration
