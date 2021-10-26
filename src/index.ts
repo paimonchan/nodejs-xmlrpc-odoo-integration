@@ -3,10 +3,22 @@ import xmlrpc from 'xmlrpc';
 class OdooXMLRPC {
     config!: Record<string, unknown>;
 
-    init = (config: Record<string, unknown>): void => {
-        this.config = config
+    /**
+     * set xmlrpc configuration
+     * @param {dict} config {
+     *      host        : <required, odoo host url: example 'http://localhost'>,
+     *      port        : <required, odoo port: example 80|443|8069>,
+     *      username    : <required, odoo 'username|useremail'>,
+     *      password    : <required, odoo 'userpassword'>,
+     *      database    : <required, odoo 'database name'>,
+     *      uid         : <optional, odoo 'user id'>
+     * }
+     */
+    public static create = (config: Record<string, number | string>): OdooXMLRPC => {
+        const rpc = new OdooXMLRPC()
+        rpc.config = config
+        return rpc
     }
 }
 
-const odooXMLRPC = new OdooXMLRPC()
-export default odooXMLRPC
+export default OdooXMLRPC
