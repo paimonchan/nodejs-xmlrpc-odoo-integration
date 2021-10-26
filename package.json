@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/paimonchan/nodejs-xmlrpc-odoo-integration#readme",
   "dependencies": {
+    "url": "^0.11.0",
     "xmlrpc": "^1.3.2"
   },
   "devDependencies": {
