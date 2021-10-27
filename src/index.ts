@@ -11,6 +11,17 @@ class OdooXMLRPC {
     private config!: Record<string, number | string>
     private client!: xmlrpc.Client;
 
+    /* construct error message for rpc error */
+    private getRPCErrror = (e: Error) => {
+        const formatError = {
+            name        : 'RPC Error',
+            code        : 'rpc_error_code',
+            message     : e.message
+        }
+        return formatError
+    }
+
+    /* create rpc client over http or https */
     private getClient = (rpcPath: string): xmlrpc.Client => {
         const {host, port} = this.config
         const urlProperty = new URL(String(host))
