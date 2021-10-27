@@ -39,6 +39,16 @@ class OdooXMLRPC {
     }
 
     /**
+     * get parameters that must exist in rpc transaction 
+     * @return [database, uid or username, password]
+     */
+    private getRequiredParams = () => {
+        const {database, username, password, uid} = this.config;
+        const params = [database, uid || username, password]
+        return params;
+    }
+    
+    /**
      * set xmlrpc configuration
      * @param {dict} config {
      *      host        : <required, odoo host url: example 'http://localhost'>,
