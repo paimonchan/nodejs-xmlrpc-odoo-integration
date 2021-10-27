@@ -48,6 +48,21 @@ class OdooXMLRPC {
         return params;
     }
     
+    private executeKW = ({model, method, args, kwargs}: Record<string, any>): Promise<[]|number> => {
+        return new Promise((resolve, reject) => {
+            const client = this.getClient(RPC_PATH_OBJECT)
+            const requiredParams = this.getRequiredParams()
+
+            let composeParams = requiredParams
+            /* list ordering params is fixed and can't be switched */
+            composeParams = composeParams.concat([model, method, args, kwargs])
+            client.methodCall('execute_kw', composeParams, (e, value) => {
+                if (e) { return reject(e) }
+                return resolve(value)
+            })
+        })
+    }
+
     /**
      * set xmlrpc configuration
      * @param {dict} config {
