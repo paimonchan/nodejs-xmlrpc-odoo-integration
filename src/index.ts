@@ -58,7 +58,15 @@ class OdooXMLRPC {
         return this.uid && this.uid > 0
     }
     
-    private executeKW = ({model, method, args, kwargs}: Record<string, any>): Promise<[]|number> => {
+    /**
+     * odoo prepare 2 function to call model function, its `execute` and `execute_kw`
+     * @param {string} model            : odoo model name (ex: product.product)
+     * @param {string} method           : odoo model function name
+     * @param {list} args               : arguments, normaly used to pass record ids
+     * @param {dict} kwargs             : kwargs, normaly used to pass method parameter or context
+     * @returns list of object or id
+     */
+    private executeKW = ({model, method, args, kwargs}: Record<string, any>): Promise<[] | number> => {
         return new Promise((resolve, reject) => {
             const client = this.getClient(RPC_PATH_OBJECT)
             const requiredParams = this.getRequiredParams()
