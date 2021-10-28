@@ -9,7 +9,8 @@ const RPC_PATH_DB = '/xmlrpc/2/db'
 
 class OdooXMLRPC {
     private config!: Record<string, number | string>
-    private client!: xmlrpc.Client;
+    private client!: xmlrpc.Client
+    private uid!: number
 
     /* construct error message for rpc error */
     private getRPCErrror = (e: Error) => {
@@ -76,6 +77,7 @@ class OdooXMLRPC {
      */
     public static create = (config: Record<string, number | string>): OdooXMLRPC => {
         const rpc = new OdooXMLRPC()
+        rpc.uid = Number(config.uid || 0)
         rpc.config = config
         return rpc
     }
