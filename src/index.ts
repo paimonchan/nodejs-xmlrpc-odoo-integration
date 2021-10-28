@@ -48,6 +48,15 @@ class OdooXMLRPC {
         const params = [database, uid || username, password]
         return params;
     }
+
+    /**
+     * check if user already login or not.
+     * when you pass uid on configuration, it mean you already know the identifier of the user,
+     * an so we expect you already login. (this help to reduce api call by skip call authenticate method again)
+     */
+    private alreadyLogin = () => {
+        return this.uid && this.uid > 0
+    }
     
     private executeKW = ({model, method, args, kwargs}: Record<string, any>): Promise<[]|number> => {
         return new Promise((resolve, reject) => {
@@ -61,6 +70,15 @@ class OdooXMLRPC {
                 if (e) { return reject(e) }
                 return resolve(value)
             })
+        })
+    }
+
+    // TODO: add manual authenticate by username and password
+    private authenticate = (): Promise<number> => {
+        return new Promise((resolve, reject) => {
+            if (this.alreadyLogin()) {
+                return resolve(this.uid)
+            }
         })
     }
 
