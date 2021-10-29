@@ -81,12 +81,25 @@ class OdooXMLRPC {
         })
     }
 
-    // TODO: add manual authenticate by username and password
+    /** */
     private authenticate = (): Promise<number> => {
         return new Promise((resolve, reject) => {
             if (this.alreadyLogin()) {
                 return resolve(this.uid)
             }
+
+            const client = this.getClient(RPC_PATH_COMMON)
+            const requiredParams = this.getRequiredParams()
+            client.methodCall('authenticate', requiredParams, (e, uid: number) => {
+                if (e) { 
+                    return reject(this.getRPCError({e}))
+                }
+                if (!uid) {
+                    return reject(this.getRPCError({message: 'invalid username/password'}))
+                }
+                this.uid = uid
+                return resolve(this.uid)
+            })
         })
     }
 
