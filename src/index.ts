@@ -13,11 +13,11 @@ class OdooXMLRPC {
     private uid!: number
 
     /* construct error message for rpc error */
-    private getRPCErrror = (e: Error) => {
+    private getRPCError = ({e, message}: Record<string, any>) => {
         const formatError = {
             name        : 'RPC Error',
             code        : 'rpc_error_code',
-            message     : e.message
+            message     : e.message || message,
         }
         return formatError
     }
