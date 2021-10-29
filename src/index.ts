@@ -75,7 +75,7 @@ class OdooXMLRPC {
             /* list ordering params is fixed and can't be switched */
             composeParams = composeParams.concat([model, method, args, kwargs])
             client.methodCall('execute_kw', composeParams, (e, value) => {
-                if (e) { return reject(e) }
+                if (e) { return reject(this.getRPCError({e})) }
                 return resolve(value)
             })
         })
