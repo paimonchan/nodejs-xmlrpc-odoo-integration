@@ -7,6 +7,15 @@ const RPC_PATH_OBJECT = '/xmlrpc/2/object'
 //       add checking version odoo before call this path.
 const RPC_PATH_DB = '/xmlrpc/2/db'
 
+interface Input {
+    model       : string,
+    method      : string,
+    record_ids? : number[],
+    args?       : any[],
+    kwargs?     : Record<string, any>,
+    context?    : Record<string, any>
+}
+
 class OdooXMLRPC {
     private config!: Record<string, number | string>
     private client!: xmlrpc.Client
