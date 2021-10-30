@@ -27,9 +27,9 @@ class OdooXMLRPC {
         const {host, port} = this.config
         const urlProperty = new URL(String(host))
         const options = {
-            host: urlProperty.host,
-            port: Number(port),
-            path: rpcPath,
+            host        : urlProperty.host,
+            port        : Number(port),
+            path        : rpcPath,
         }
         if (urlProperty.protocol === 'http:') {
             this.client = xmlrpc.createClient(options)
