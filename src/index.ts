@@ -116,6 +116,22 @@ class OdooXMLRPC {
         })
     }
 
+    /* */
+    public call = async ({model, method, record_ids, args, kwargs, context}: Input) => {
+        let composeArgs: any[] = []
+        const composeKwargs = {...kwargs, context}
+        record_ids = record_ids?.length ?? 0 > 0 ? record_ids : [0]
+        composeArgs = composeArgs.concat([record_ids])
+        composeArgs = composeArgs.concat([args])
+        try {
+            await this.authenticate()
+            const response = await this.executeKW({model, method, args:composeArgs, kwargs:composeKwargs})
+            return response
+        } catch (e: any) {
+            throw this.getRPCError(e.message)
+        }
+    }
+
     /**
      * set xmlrpc configuration
      * @param {dict} config {
