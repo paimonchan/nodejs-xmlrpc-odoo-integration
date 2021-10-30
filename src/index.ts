@@ -81,7 +81,11 @@ class OdooXMLRPC {
         })
     }
 
-    /** */
+    /**
+     * get odoo res.user id.
+     * when uid is set inside config, this function automatically will be skipped.
+     * @return id
+     */
     private authenticate = (): Promise<number> => {
         return new Promise((resolve, reject) => {
             if (this.alreadyLogin()) {
