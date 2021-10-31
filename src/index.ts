@@ -116,8 +116,16 @@ class OdooXMLRPC {
         })
     }
 
-    /* */
-    public call = async ({model, method, record_ids, args, kwargs, context}: Input) => {
+    /**
+     * call public function inside odoo model.
+     * @param {string} model            : odoo name of model (ex: product.product)
+     * @param {method} method           : method name inside a model
+     * @param {list} record_ids         : rows id from model
+     * @param {list} args               : list arguments
+     * @param {dict} kwargs             : list dicitonary parameter
+     * @param {dict} context            : odoo context / metadata (like tz, language)
+     */
+    public call = async ({model, method, record_ids = [], args = [], kwargs = {}, context = {}}: Input) => {
         let composeArgs: any[] = []
         const composeKwargs = {...kwargs, context}
         record_ids = record_ids?.length ?? 0 > 0 ? record_ids : [0]
