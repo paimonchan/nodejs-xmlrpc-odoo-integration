@@ -13,7 +13,13 @@ interface Input {
     record_ids? : number[],
     args?       : any[],
     kwargs?     : Record<string, any>,
-    context?    : Record<string, any>
+    context?    : Record<string, any>,
+    domain?     : any[],
+    fields?     : any[],
+    vals?       : Record<string, any>,
+    limit?      : number,
+    offset?     : number,
+    order?      : string,
 }
 
 class OdooXMLRPC {
