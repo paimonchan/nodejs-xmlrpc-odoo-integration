@@ -128,6 +128,14 @@ class OdooXMLRPC {
     public call = async ({model, method, record_ids = [], args = [], kwargs = {}, context = {}}: Input) => {
         let composeArgs: any[] = []
         const composeKwargs = {...kwargs, context}
+        /**
+         * set record_ids = [0] if not set. this will enable call method without target record
+         * explained:
+         * 1. with record_ids           : `self` value in odoo is records itself, and can access all methods.
+         *                              :  modify `self` property inside method will affect on the records.
+         * 2. without record_ids        : `self` value in odoo is empty, but still can access all methods.
+         *                              :  modify `self` property inside method not affect on any records.
+         */
         record_ids = record_ids?.length ?? 0 > 0 ? record_ids : [0]
         composeArgs = composeArgs.concat([record_ids])
         composeArgs = composeArgs.concat([args])
