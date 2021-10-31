@@ -11,12 +11,12 @@ interface Input {
     model       : string,
     method      : string,
     record_ids? : number[],
-    args?       : any[],
-    kwargs?     : Record<string, any>,
-    context?    : Record<string, any>,
-    domain?     : any[],
-    fields?     : any[],
-    vals?       : Record<string, any>,
+    args?       : unknown[],
+    kwargs?     : Record<string, unknown>,
+    context?    : Record<string, unknown>,
+    domain?     : unknown[],
+    fields?     : unknown[],
+    vals?       : Record<string, unknown>,
     limit?      : number,
     offset?     : number,
     order?      : string,
@@ -28,11 +28,11 @@ class OdooXMLRPC {
     private uid!: number
 
     /* construct error message for rpc error */
-    private getRPCError = ({e, message}: Record<string, any>) => {
+    private getRPCError = (message: string) => {
         const formatError = {
             name        : 'RPC Error',
             code        : 'rpc_error_code',
-            message     : e.message || message,
+            message     :  message,
         }
         return formatError
     }
@@ -81,16 +81,17 @@ class OdooXMLRPC {
      * @param {dict} kwargs             : kwargs, normaly used to pass method parameter or context
      * @returns list of object or id
      */
-    private executeKW = ({model, method, args, kwargs}: Record<string, any>): Promise<[] | number> => {
+    private executeKW = ({model, method, args, kwargs}: Record<string, unknown>): Promise<[] | number> => {
         return new Promise((resolve, reject) => {
             const client = this.getClient(RPC_PATH_OBJECT)
             const requiredParams = this.getRequiredParams()
 
-            let composeParams = requiredParams
+            let composeParams:unknown[] = []
+            composeParams = composeParams.concat(requiredParams)
             /* list ordering params is fixed and can't be switched */
             composeParams = composeParams.concat([model, method, args, kwargs])
-            client.methodCall('execute_kw', composeParams, (e, value) => {
-                if (e) { return reject(this.getRPCError({e})) }
+            client.methodCall('execute_kw', composeParams, (e: any, value) => {
+                if (e) { return reject(this.getRPCError(e?.message)) }
                 return resolve(value)
             })
         })
@@ -109,12 +110,12 @@ class OdooXMLRPC {
 
             const client = this.getClient(RPC_PATH_COMMON)
             const requiredParams = this.getRequiredParams()
-            client.methodCall('authenticate', requiredParams, (e, uid: number) => {
+            client.methodCall('authenticate', requiredParams, (e: any, uid: number) => {
                 if (e) { 
-                    return reject(this.getRPCError({e}))
+                    return reject(this.getRPCError(e.message))
                 }
                 if (!uid) {
-                    return reject(this.getRPCError({message: 'invalid username/password'}))
+                    return reject(this.getRPCError('invalid username/password'))
                 }
                 this.uid = uid
                 return resolve(this.uid)
