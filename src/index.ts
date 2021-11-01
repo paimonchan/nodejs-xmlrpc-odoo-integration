@@ -155,6 +155,30 @@ class OdooXMLRPC {
         }
     }
 
+    /** */
+    public search = async ({
+        model, domain = [[]], limit = null, 
+        offset = null, order = null, fields = [], context = {}
+    }: Input) => {
+        const method = 'search_read'
+        const kwargs:Record<string, unknown> = {fields, context}
+        if (limit !== null) {
+            kwargs['limit'] = Number(limit)
+        }
+        if (offset !== null) {
+            kwargs['offset'] = Number(offset)
+        }
+        if (order !== null) {
+            kwargs['order'] = String(order)
+        }
+        try {
+            const response = await this.executeKW({model, method, args:[domain], kwargs:kwargs})
+            return response
+        } catch (e: any) {
+            throw this.getRPCError(e.message)
+        }
+    }
+
     /**
      * set xmlrpc configuration
      * @param {dict} config {
