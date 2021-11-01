@@ -162,12 +162,15 @@ class OdooXMLRPC {
     }: Input) => {
         const method = 'search_read'
         const kwargs:Record<string, unknown> = {fields, context}
+        /* only pass to params if is set */
         if (limit !== null) {
             kwargs['limit'] = Number(limit)
         }
+        /* only pass to params if is set */
         if (offset !== null) {
             kwargs['offset'] = Number(offset)
         }
+        /* only pass to params if is set */
         if (order !== null) {
             kwargs['order'] = String(order)
         }
