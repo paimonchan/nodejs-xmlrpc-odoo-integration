@@ -14,12 +14,12 @@ interface Input {
     args?       : unknown[],
     kwargs?     : Record<string, unknown>,
     context?    : Record<string, unknown>,
-    domain?     : unknown[],
-    fields?     : unknown[],
+    domain?     : unknown[] | null,
+    fields?     : unknown[] | null,
     vals?       : Record<string, unknown>,
-    limit?      : number,
-    offset?     : number,
-    order?      : string,
+    limit?      : number | null,
+    offset?     : number | null,
+    order?      : string | null,
 }
 
 class OdooXMLRPC {
