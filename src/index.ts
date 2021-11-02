@@ -126,7 +126,7 @@ class OdooXMLRPC {
     /**
      * call public function inside odoo model.
      * @param {string} model            : odoo name of model (ex: product.product)
-     * @param {method} method           : method name inside a model
+     * @param {string} method           : method name inside a model
      * @param {list} record_ids         : rows id from model
      * @param {list} args               : list arguments
      * @param {dict} kwargs             : list dicitonary parameter
@@ -155,7 +155,17 @@ class OdooXMLRPC {
         }
     }
 
-    /** */
+    /** 
+     * get odoo records filtered by domain.
+     * @param {string} model            : odoo name of model (ex: product.product)
+     * @param {string} method           : method name inside odoo model
+     * @param {list} domain             : odoo domain (ex: [['active', '=', true]])
+     * @param {int} limit               : limit search records
+     * @param {int} offset              : offset search record
+     * @param {string} order            : order query (ex: 'id desc')
+     * @param {list} fields             : column record to return
+     * @param {dict} context            : odoo context
+     */
     public search = async ({
         model, domain = [[]], limit = null, 
         offset = null, order = null, fields = [], context = {}
