@@ -133,7 +133,7 @@ class OdooXMLRPC {
      * @param {dict} context            : odoo context / metadata (like tz, language)
      */
     public call = async ({model, method, record_ids = [], args = [], kwargs = {}, context = {}}: Input) => {
-        let composeArgs: any[] = []
+        let composeArgs: unknown[] = []
         const composeKwargs = {...kwargs, context}
         /**
          * set record_ids = [0] if not set. this will enable call method without target record
@@ -150,7 +150,7 @@ class OdooXMLRPC {
             await this.authenticate()
             const response = await this.executeKW({model, method, args:composeArgs, kwargs:composeKwargs})
             return response
-        } catch (e: any) {
+        } catch (e) {
             throw this.getRPCError(e.message)
         }
     }
@@ -177,7 +177,7 @@ class OdooXMLRPC {
         try {
             const response = await this.executeKW({model, method, args:[domain], kwargs:kwargs})
             return response
-        } catch (e: any) {
+        } catch (e) {
             throw this.getRPCError(e.message)
         }
     }
