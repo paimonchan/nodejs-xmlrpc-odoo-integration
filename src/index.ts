@@ -9,7 +9,7 @@ const RPC_PATH_DB = '/xmlrpc/2/db'
 
 interface Input {
     model       : string,
-    method      : string,
+    method?     : string,
     record_ids? : number[],
     args?       : unknown[],
     kwargs?     : Record<string, unknown>,
@@ -158,7 +158,6 @@ class OdooXMLRPC {
     /** 
      * get odoo records filtered by domain.
      * @param {string} model            : odoo name of model (ex: product.product)
-     * @param {string} method           : method name inside odoo model
      * @param {list} domain             : odoo domain (ex: [['active', '=', true]])
      * @param {int} limit               : limit search records
      * @param {int} offset              : offset search record
