@@ -202,7 +202,7 @@ class OdooXMLRPC {
      *      uid         : <optional, odoo 'user id'>
      * }
      */
-    public static create = (config: Record<string, number | string>): OdooXMLRPC => {
+    public static connect = (config: Record<string, number | string>): OdooXMLRPC => {
         const rpc = new OdooXMLRPC()
         rpc.uid = Number(config.uid || 0)
         rpc.config = config
