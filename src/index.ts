@@ -191,6 +191,17 @@ class OdooXMLRPC {
         }
     }
 
+    /** 
+     * get odoo records filtered by record ids.
+     * @param {string} model            : odoo name of model (ex: product.product)
+     * @param {list} record_ids         : rows id from model
+     * @param {dict} context            : odoo context
+     */
+    public browse = async ({model, record_ids, context = {}}: Input) => {
+        record_ids = record_ids?.length ?? 0 > 0 ? record_ids : [0]
+        const domain = [['id', 'in', record_ids]]
+        return await this.search({model, domain, context})
+    }
     /**
      * set xmlrpc configuration
      * @param {dict} config {
