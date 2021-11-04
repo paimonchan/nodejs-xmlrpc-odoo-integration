@@ -202,6 +202,24 @@ class OdooXMLRPC {
         const domain = [['id', 'in', record_ids]]
         return await this.search({model, domain, context})
     }
+
+    /** 
+     * get count of rows from odoo
+     * @param {string} model            : odoo name of model (ex: product.product)
+     * @param {dict} context            : odoo context
+     */
+    public count = async ({model, context = {}}: Input) => {
+        const method = 'search_count'
+        const kwargs = {context}
+        try {
+            await this.authenticate()
+            const response = await this.executeKW({model, method, kwargs})
+            return response
+        } catch (e) {
+            throw this.getRPCError(e.message)
+        }
+    }
+
     /**
      * set xmlrpc configuration
      * @param {dict} config {
