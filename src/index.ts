@@ -97,6 +97,14 @@ class OdooXMLRPC {
         })
     }
 
+    /** */
+    private executeDB = ({model, method, args, kwargs}: Record<string, unknown>): Promise<[] | number> => {
+        return new Promise((resolve, reject) => {
+            const client = this.getClient(RPC_PATH_DB)
+            const requiredParams = this.getRequiredParams()
+        })
+    }
+
     /**
      * get odoo res.user id.
      * when uid is set inside config, this function automatically will be skipped.
