@@ -220,6 +220,11 @@ class OdooXMLRPC {
         }
     }
 
+
+    public version = async () => {
+        // TODO: get version from endpoint DB
+    }
+
     /**
      * set xmlrpc configuration
      * @param {dict} config {
