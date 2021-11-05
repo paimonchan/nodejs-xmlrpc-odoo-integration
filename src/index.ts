@@ -228,6 +228,17 @@ class OdooXMLRPC {
         }
     }
 
+    /** */
+    public fields = async ({model}: Input) => {
+        const method = 'fields_get'
+        const kwargs = {'attributes':['type']}
+        try {
+            const response = await this.call({model:model, method, kwargs})
+            return response
+            } catch (e) {
+                throw this.getRPCError(e.message)
+            }
+    }
 
     public version = async () => {
         // TODO: get version from endpoint DB
