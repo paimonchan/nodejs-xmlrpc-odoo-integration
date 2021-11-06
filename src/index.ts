@@ -105,7 +105,8 @@ class OdooXMLRPC {
             if (args) {
                 composeParams = composeParams.concat([args])
             }
-            client.methodCall(method, composeParams, (e: any, value) => {
+            const exp_method = String(method)
+            client.methodCall(exp_method, composeParams, (e: any, value) => {
                 if (e) { return reject(this.getRPCError(e?.message)) }
                 return resolve(value)
             })
