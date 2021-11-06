@@ -98,10 +98,17 @@ class OdooXMLRPC {
     }
 
     /** */
-    private executeDB = ({model, method, args, kwargs}: Record<string, unknown>): Promise<[] | number> => {
+    private executeDB = ({method, args}: Record<string, unknown>): Promise<[] | number> => {
         return new Promise((resolve, reject) => {
             const client = this.getClient(RPC_PATH_DB)
-            const requiredParams = this.getRequiredParams()
+            let composeParams:unknown[] = []
+            if (args) {
+                composeParams = composeParams.concat([args])
+            }
+            client.methodCall(method, composeParams, (e: any, value) => {
+                if (e) { return reject(this.getRPCError(e?.message)) }
+                return resolve(value)
+            })
         })
     }
 
