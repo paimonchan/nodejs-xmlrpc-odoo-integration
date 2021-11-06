@@ -250,8 +250,15 @@ class OdooXMLRPC {
         }
     }
 
+    /** */
     public version = async () => {
-        // TODO: get version from endpoint DB
+        const method = 'server_version'
+        try {
+            const response = await this.executeDB({method})
+            return response
+        } catch (e) {
+            throw this.getRPCError(e.message)
+        }
     }
 
     /**
