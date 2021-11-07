@@ -251,7 +251,9 @@ class OdooXMLRPC {
         }
     }
 
-    /** */
+    /**
+     * get odoo version
+    */
     public version = async () => {
         const method = 'server_version'
         try {
