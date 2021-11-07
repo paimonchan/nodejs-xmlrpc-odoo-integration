@@ -223,6 +223,18 @@ class OdooXMLRPC {
         return await this.search({model, domain, context})
     }
 
+    /** */
+    public create = async ({model, vals = {}, context = {}}: Input) => {
+        const method = 'create'
+        try {
+            await this.authenticate()
+            const response = await this.executeKW({model, method, args:[vals], kwargs:{context}})
+            return response
+        } catch (e) {
+            throw this.getRPCError(e.message)
+        }
+    }
+
     /** 
      * get count of rows from odoo
      * @param {string} model            : odoo name of model (ex: product.product)
