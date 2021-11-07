@@ -235,6 +235,18 @@ class OdooXMLRPC {
         }
     }
 
+    /** */
+    public write = async ({model, record_ids = [], vals = {}, context = {}}: Input) =>  {
+        const method = 'write'
+        try {
+            await this.authenticate()
+            const response = await this.executeKW({model, method, args:[record_ids, vals], kwargs:{context}})
+            return response
+        } catch (e) {
+            throw this.getRPCError(e.message)
+        }
+    }
+
     /** 
      * get count of rows from odoo
      * @param {string} model            : odoo name of model (ex: product.product)
