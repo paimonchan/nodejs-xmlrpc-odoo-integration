@@ -97,7 +97,11 @@ class OdooXMLRPC {
         })
     }
 
-    /** */
+    /**
+     * access endpoint related to db
+     * @param {string} model            : odoo model name (ex: product.product)
+     * @param {list} args               : arguments, normaly used to pass record ids
+    */
     private executeDB = ({method, args}: Record<string, unknown>): Promise<[] | number> => {
         return new Promise((resolve, reject) => {
             const client = this.getClient(RPC_PATH_DB)
