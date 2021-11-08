@@ -236,6 +236,18 @@ class OdooXMLRPC {
     }
 
     /** */
+    public unlink = async ({model, record_ids, context = {}}: Input) => {
+        const method = 'unlink'
+        try {
+            await this.authenticate()
+            const response = await this.executeKW({model, method, args:[record_ids], kwargs:{context}})
+            return response
+        } catch (e) {
+            throw this.getRPCError(e.message)
+        }
+    }
+
+    /** */
     public write = async ({model, record_ids = [], vals = {}, context = {}}: Input) =>  {
         const method = 'write'
         try {
