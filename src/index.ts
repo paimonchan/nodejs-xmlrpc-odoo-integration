@@ -223,7 +223,11 @@ class OdooXMLRPC {
         return await this.search({model, domain, context})
     }
 
-    /** */
+    /**
+     * @param {string} model            : odoo name of model (ex: product.product)
+     * @param {dict} vals               : columns value per record
+     * @param {dict} context            : odoo context
+     */
     public create = async ({model, vals = {}, context = {}}: Input) => {
         const method = 'create'
         try {
