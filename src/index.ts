@@ -255,7 +255,12 @@ class OdooXMLRPC {
         }
     }
 
-    /** */
+    /**
+     * @param {string} model            : odoo name of model (ex: product.product)
+     * @param {list} record_ids         : rows id from model
+     * @param {dict} vals               : columns value per record
+     * @param {dict} context            : odoo context
+     */
     public write = async ({model, record_ids = [], vals = {}, context = {}}: Input) =>  {
         const method = 'write'
         try {
