@@ -239,7 +239,11 @@ class OdooXMLRPC {
         }
     }
 
-    /** */
+    /**
+     * @param {string} model            : odoo name of model (ex: product.product)
+     * @param {list} record_ids         : rows id from model
+     * @param {dict} context            : odoo context
+     */
     public unlink = async ({model, record_ids, context = {}}: Input) => {
         const method = 'unlink'
         try {
