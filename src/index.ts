@@ -72,6 +72,14 @@ class OdooXMLRPC {
     private alreadyLogin = () => {
         return this.uid && this.uid > 0
     }
+
+    /** */
+    private sanitizeSearchResponseToObject = async ({model, response}: Record<string, string | []>) => {
+        const fieldsMeta = await this.fields({model: String(model)})
+        for (const res of response) {
+            // TODO: add action to check many2one, many2many
+        }
+    }
     
     /**
      * odoo prepare 2 function to call model function, its `execute` and `execute_kw`
