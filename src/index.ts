@@ -325,6 +325,10 @@ class OdooXMLRPC {
         }
     }
 
+    public check = async () => {
+        // TODO add action to check healt of the server odoo
+    }
+
     /**
      * set xmlrpc configuration
      * @param {dict} config {
