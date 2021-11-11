@@ -80,6 +80,10 @@ class OdooXMLRPC {
             // TODO: add action to check many2one, many2many
         }
     }
+
+    private executeCommon = ({method}: Record<string, unknon>): Promise<any> => {
+        //TODO add action to execute common
+    } 
     
     /**
      * odoo prepare 2 function to call model function, its `execute` and `execute_kw`
