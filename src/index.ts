@@ -89,7 +89,7 @@ class OdooXMLRPC {
      * @param {dict} kwargs             : kwargs, normaly used to pass method parameter or context
      * @returns list of object or id
      */
-    private executeKW = ({model, method, args, kwargs}: Record<string, unknown>): Promise<[] | number> => {
+    private executeKW = ({model, method, args, kwargs}: Record<string, unknown>): Promise<any> => {
         return new Promise((resolve, reject) => {
             const client = this.getClient(RPC_PATH_OBJECT)
             const requiredParams = this.getRequiredParams()
