@@ -74,10 +74,24 @@ class OdooXMLRPC {
     }
 
     /** */
-    private sanitizeSearchResponseToObject = async ({model, response}: Record<string, string | []>) => {
+    private sanitizeSearchResponseToObject = async ({model, response}: Record<string, any>) => {
         const fieldsMeta = await this.fields({model: String(model)})
         for (const res of response) {
-            // TODO: add action to check many2one, many2many
+            for (const key in res) {
+                const val = res[key]
+                const type = fieldsMeta[key].type
+                if (type == 'many2one') {
+                    res[key] = {
+                        id: val ? val[0] : false,
+                        name: val ? val[1] : false,
+                    }
+                    res[key] = val ? res[key] : {}
+                }
+                /* make the return type is same for multi relational. */
+                else if (type == 'one2many' || type == 'many2many') {
+                    res[key] = val ? val : []
+                }
+            }
         }
     }
 
