@@ -73,7 +73,12 @@ class OdooXMLRPC {
         return this.uid && this.uid > 0
     }
 
-    /** */
+    /** 
+     * convert response data for many2one field from odoo into object.
+     * this will convert this type response [id, name] into {id: id, name:name}
+     * @param {string} model            : odoo model name (table name)
+     * @param {list} response           : response data from `search` method
+    */
     private sanitizeSearchResponseToObject = async ({model, response}: Record<string, any>) => {
         const fieldsMeta = await this.fields({model: String(model)})
         for (const res of response) {
