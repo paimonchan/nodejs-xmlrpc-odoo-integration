@@ -100,8 +100,22 @@ class OdooXMLRPC {
         }
     }
 
-    private executeCommon = ({method}: Record<string, unknon>): Promise<any> => {
-        //TODO add action to execute common
+    /** */
+    private executeCommon = ({method}: Input): Promise<any> => {
+        return new Promise((resolve, reject) => {
+            const client = this.getClient(RPC_PATH_COMMON)
+            const requiredParams = this.getRequiredParams()
+            client.methodCall(String(method), requiredParams, (e: any, uid: number) => {
+                if (e) { 
+                    return reject(this.getRPCError(e.message))
+                }
+                if (!uid) {
+                    return reject(this.getRPCError('invalid username/password'))
+                }
+                this.uid = uid
+                return resolve(this.uid)
+            })
+        })
     } 
     
     /**
