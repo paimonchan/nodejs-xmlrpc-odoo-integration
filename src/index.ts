@@ -8,7 +8,7 @@ const RPC_PATH_OBJECT = '/xmlrpc/2/object'
 const RPC_PATH_DB = '/xmlrpc/2/db'
 
 interface Input {
-    model       : string,
+    model?      : string,
     method?     : string,
     record_ids? : number[],
     args?       : unknown[],
