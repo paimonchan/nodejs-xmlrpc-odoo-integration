@@ -100,7 +100,10 @@ class OdooXMLRPC {
         }
     }
 
-    /** */
+    /**
+     * call endpint common to odoo
+     * @param {string} method           : odoo function inside a model
+     */
     private executeCommon = ({method}: Input): Promise<any> => {
         return new Promise((resolve, reject) => {
             const client = this.getClient(RPC_PATH_COMMON)
