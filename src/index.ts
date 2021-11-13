@@ -108,15 +108,11 @@ class OdooXMLRPC {
         return new Promise((resolve, reject) => {
             const client = this.getClient(RPC_PATH_COMMON)
             const requiredParams = this.getRequiredParams()
-            client.methodCall(String(method), requiredParams, (e: any, uid: number) => {
+            client.methodCall(String(method), requiredParams, (e: any, res: any) => {
                 if (e) { 
                     return reject(this.getRPCError(e.message))
                 }
-                if (!uid) {
-                    return reject(this.getRPCError('invalid username/password'))
-                }
-                this.uid = uid
-                return resolve(this.uid)
+                return resolve(res)
             })
         })
     } 
