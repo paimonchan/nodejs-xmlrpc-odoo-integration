@@ -86,11 +86,7 @@ class OdooXMLRPC {
                 const val = res[key]
                 const type = fieldsMeta[key].type
                 if (type == 'many2one') {
-                    res[key] = {
-                        id: val ? val[0] : false,
-                        name: val ? val[1] : false,
-                    }
-                    res[key] = val ? res[key] : {}
+                    res[key] = val ? {id: val[0], name: val[1]} : {}
                 }
                 /* make the return type is same for multi relational. */
                 else if (type == 'one2many' || type == 'many2many') {
