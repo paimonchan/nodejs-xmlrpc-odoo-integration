@@ -166,25 +166,16 @@ class OdooXMLRPC {
      * when uid is set inside config, this function automatically will be skipped.
      * @return id
      */
-    private authenticate = (): Promise<number> => {
-        return new Promise((resolve, reject) => {
-            if (this.alreadyLogin()) {
-                return resolve(this.uid)
-            }
-
-            const client = this.getClient(RPC_PATH_COMMON)
-            const requiredParams = this.getRequiredParams()
-            client.methodCall('authenticate', requiredParams, (e: any, uid: number) => {
-                if (e) { 
-                    return reject(this.getRPCError(e.message))
-                }
-                if (!uid) {
-                    return reject(this.getRPCError('invalid username/password'))
-                }
-                this.uid = uid
-                return resolve(this.uid)
-            })
-        })
+    private authenticate = async ()=> {
+        if (this.alreadyLogin()) {
+            this.uid
+        }
+        const uid = await this.executeCommon({method: 'authenticate'})
+        if (!uid) {
+            throw this.getRPCError('invalid username/password')
+        }
+        this.uid = uid
+        return this.uid
     }
 
     /**
