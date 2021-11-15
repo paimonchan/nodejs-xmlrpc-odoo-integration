@@ -26,6 +26,7 @@ class OdooXMLRPC {
     private config!: Record<string, number | string>
     private client!: xmlrpc.Client
     private uid!: number
+    private convertToDict!: boolean
 
     /* construct error message for rpc error */
     private getRPCError = (message: string) => {
@@ -367,6 +368,7 @@ class OdooXMLRPC {
         const rpc = new OdooXMLRPC()
         rpc.uid = Number(config.uid || 0)
         rpc.config = config
+        rpc.convertToDict = true
         return rpc
     }
 }
