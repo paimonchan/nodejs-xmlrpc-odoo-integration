@@ -24,7 +24,7 @@ interface Input {
 
 class OdooXMLRPC {
     private config!: Record<string, number | string>
-    private convertToDict!: boolean
+    private strictTypeData!: boolean
     private client!: xmlrpc.Client
     private uid!: number
 
@@ -237,7 +237,7 @@ class OdooXMLRPC {
         }
         try {
             const response = await this.executeKW({model, method, args:[domain], kwargs:kwargs})
-            if (!this.convertToDict) {
+            if (!this.strictTypeData) {
                 return response
             }
             // TODO: add action to convert response search into dict
@@ -370,7 +370,7 @@ class OdooXMLRPC {
     public static connect = (config: Record<string, number | string>): OdooXMLRPC => {
         const rpc = new OdooXMLRPC()
         rpc.uid = Number(config.uid || 0)
-        rpc.convertToDict = false
+        rpc.strictTypeData = false
         rpc.config = config
         return rpc
     }
