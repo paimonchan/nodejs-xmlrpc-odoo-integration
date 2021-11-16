@@ -370,7 +370,7 @@ class OdooXMLRPC {
     public static connect = (config: Record<string, number | string>): OdooXMLRPC => {
         const rpc = new OdooXMLRPC()
         rpc.uid = Number(config.uid || 0)
-        rpc.strictTypeData = false
+        rpc.strictTypeData = config?.strictTypeData ? true : false
         rpc.config = config
         return rpc
     }
