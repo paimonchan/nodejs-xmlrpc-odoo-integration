@@ -240,7 +240,8 @@ class OdooXMLRPC {
             if (!this.strictTypeData) {
                 return response
             }
-            // TODO: add action to convert response search into dict
+
+            return this.sanitizeSearchResponseToObject({model, response})
         } catch (e) {
             throw this.getRPCError(e.message)
         }
